@@ -16,80 +16,75 @@
     <h1>Tekeningen</h1>
     <div class="gallery" id="gallery"></div>
 
+    <!-- Overlay voor de preview -->
+    <div class="overlay" id="overlay">
+        <span class="close-btn" id="close-btn">&times;</span>
+        <img class="overlay-img" id="overlay-img" src="" alt="Preview">
+        <button class="nav-btn prev-btn" id="prev-btn">&#10094;</button>
+        <button class="nav-btn next-btn" id="next-btn">&#10095;</button>
+    </div>
+
     <script>
-        const owner = 'fotografie1'; // Vervang door je GitHub-gebruikersnaam
-        const repo = 'portfolio';     // Vervang door je repositorynaam
-        const folder = 'tekeningen';       // Map waar de tekeningen staan
+        const owner = 'wcuperus'; // Vervang door je GitHub-gebruikersnaam
+        const repo = 'portfolio';    // Vervang door je repositorynaam
+        const folder = 'tekeningen'; // Map waar de tekeningen staan
+
+        let images = [];
+        let currentIndex = 0;
 
         async function fetchImages() {
-    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${folder}`;
-    try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error('Kan afbeeldingen niet ophalen.');
-        
-        const files = await response.json();
-        const gallery = document.getElementById('gallery');
-        
-        files.forEach(file => {
-            if (file.type === 'file' && /\.(png|jpe?g|gif|webp)$/i.test(file.name)) {
-                const img = document.createElement('img');
-                img.src = file.download_url;
-                img.alt = file.name;
-                img.addEventListener('mouseover', function() {
-                    const preview = document.getElementById('preview');
-                    preview.src = img.src; // Laad de afbeelding in de preview
-                    preview.style.display = 'block'; // Maak de preview zichtbaar
-                    positionPreview(preview, img); // Zorg ervoor dat de preview binnen het scherm valt
+            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${folder}`;
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Kan afbeeldingen niet ophalen.');
+                
+                const files = await response.json();
+                const gallery = document.getElementById('gallery');
+                
+                images = files.filter(file => /\.(png|jpe?g|gif|webp)$/i.test(file.name));
+
+                images.forEach((file, index) => {
+                    const img = document.createElement('img');
+                    img.src = file.download_url;
+                    img.alt = file.name;
+                    img.addEventListener('click', () => openPreview(index));
+                    gallery.appendChild(img);
                 });
-                img.addEventListener('mouseout', function() {
-                    const preview = document.getElementById('preview');
-                    preview.style.display = 'none'; // Verberg de preview wanneer de muis weg is
-                });
-                gallery.appendChild(img);
+            } catch (error) {
+                console.error(error);
             }
+        }
+
+        function openPreview(index) {
+            currentIndex = index;
+            const overlay = document.getElementById('overlay');
+            const overlayImg = document.getElementById('overlay-img');
+            overlay.style.display = 'flex';
+            overlayImg.src = images[index].download_url;
+        }
+
+        function closePreview() {
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function showNextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            document.getElementById('overlay-img').src = images[currentIndex].download_url;
+        }
+
+        function showPrevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            document.getElementById('overlay-img').src = images[currentIndex].download_url;
+        }
+
+        document.getElementById('close-btn').addEventListener('click', closePreview);
+        document.getElementById('next-btn').addEventListener('click', showNextImage);
+        document.getElementById('prev-btn').addEventListener('click', showPrevImage);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') showNextImage();
+            if (e.key === 'ArrowLeft') showPrevImage();
+            if (e.key === 'Escape') closePreview();
         });
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-function positionPreview(preview, img) {
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-    const imgWidth = preview.naturalWidth;
-    const imgHeight = preview.naturalHeight;
-
-    // Controleer of de afbeelding breder is dan het scherm
-    if (imgWidth > screenWidth) {
-        preview.style.width = '100vw'; // Zet de breedte van de afbeelding gelijk aan de schermbreedte
-        preview.style.height = 'auto'; // Laat de hoogte automatisch aanpassen aan de aspect ratio
-    } else {
-        preview.style.width = 'auto';
-        preview.style.height = 'auto';
-    }
-
-    // Zorg ervoor dat de afbeelding niet buiten het scherm valt aan de zijkanten
-    let leftPosition = (screenWidth - preview.offsetWidth) / 2;
-    
-    // Als de afbeelding rechts buiten het scherm valt, verschuif het naar links
-    if (img.getBoundingClientRect().right > screenWidth) {
-        leftPosition = screenWidth - preview.offsetWidth - 10; // Zorg ervoor dat de preview naar links schuift
-    }
-    // Als de afbeelding links buiten het scherm valt, verschuif het naar rechts
-    else if (img.getBoundingClientRect().left < 0) {
-        leftPosition = 10; // Zorg ervoor dat de preview naar rechts verschuift
-    }
-
-    preview.style.left = `${leftPosition}px`;
-
-    // Zorg ervoor dat de afbeelding niet buiten het scherm valt aan de bovenkant of onderkant
-    if (preview.offsetHeight > screenHeight) {
-        preview.style.top = '0';
-    } else {
-        preview.style.top = `${(screenHeight - preview.offsetHeight) / 2}px`; // Centraal positioneren
-    }
-}
-
 
         fetchImages();
     </script>
