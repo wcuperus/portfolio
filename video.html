@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video's | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Foto's</a></li>
+            <li><a href="tekeningen.html">Tekeningen</a></li>
+            <li><a href="video.html">Tekeningen</a></li>
+        </ul>
+    </nav>
+    <h1>Video's</h1>
+    <h2>KerstKnallers</h2>
+    <div> 
+        <a href="https://kerstknallers.live/" target="_blank">KerstKnallers</a> 
+        is een goededoelen-livestream die ieder jaar geld ophaalt voor Serious Request. Dit evenement is een marathonstream die plaatsvindt rond december waarbij ieder uur een andere streamer een uur lang live gaat tijdens het evenement. Ik neem zelf jaarlijks deel aan dit evenement als streamer.
+    </div>
+    <div> 
+        In 2024 heb ik ook deelgenomen aan KerstKnallers, waarvoor ik een aantal video's heb gemaakt. Hieronder zijn deze video's te vinden.
+    </div>
+
+    <div id="video-gallery" data-videos="
+    https://www.youtube.com/watch?v=WDZRR7dy3tU,
+    https://www.youtube.com/watch?v=zYmq8r5AGWE,
+    https://www.youtube.com/watch?v=dCzB2dSfFCs
+    ">
+    </div>
+
+    <script>
+        // Functie om een YouTube URL naar een embed URL te converteren
+        function convertToEmbedUrl(url) {
+            const urlObj = new URL(url);
+            if (urlObj.hostname.includes('youtube.com') && urlObj.searchParams.get('v')) {
+                return `https://www.youtube.com/embed/${urlObj.searchParams.get('v')}`;
+            }
+            if (urlObj.hostname === 'youtu.be') {
+                return `https://www.youtube.com/embed/${urlObj.pathname.slice(1)}`;
+            }
+            return null; // Ongeldige YouTube-URL
+        }
+
+        // Functie om embeds te genereren
+        function generateEmbeds() {
+            const videoGallery = document.getElementById('video-gallery');
+            const videoData = videoGallery.dataset.videos;
+            const videoUrls = videoData.split(',').map(url => url.trim());
+
+            videoUrls.forEach(url => {
+                const embedUrl = convertToEmbedUrl(url);
+                if (embedUrl) {
+                    const iframe = document.createElement('iframe');
+                    iframe.width = 560;
+                    iframe.height = 315;
+                    iframe.src = embedUrl;
+                    iframe.title = "YouTube video player";
+                    iframe.frameBorder = 0;
+                    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+                    iframe.allowFullscreen = true;
+
+                    videoGallery.appendChild(iframe);
+                }
+            });
+        }
+
+        // Roep de functie aan om de embeds te genereren
+        generateEmbeds();
+    </script>
+</body>
+</html>
