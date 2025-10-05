@@ -3,26 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tekeningen - Portfolio</title>
+  <title>Portfolio - Watse Cuperus</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>Tekeningen</h1>
+    <h1>Portfolio - Watse Cuperus</h1>
     <nav>
       <div id="navbar"></div>
     </nav>
   </header>
 
-  <main class="gallery">
-    <img src="https://via.placeholder.com/400" alt="Tekening 1">
-    <img src="https://via.placeholder.com/400" alt="Tekening 2">
+  <main class="gallery" id="drawingsGallery">
+    <img src="tekeningen/RainbowRoad.png" alt="Rainbow Road uit Mario Kart" />
+    <img src="tekeningen/strand.png" alt="Strand" />
+    <img src="tekeningen/tekening2.png" alt="Haven" />
   </main>
 
-  <footer>
-    <p>© 2025 Mijn Naam</p>
-  </footer>
-    <script src="script.js"></script>
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox hidden">
+    <button id="closeLightbox" class="lightbox-close">&times;</button>
+    <button id="prevBtn" class="lightbox-nav left">&#10094;</button>
+    <button id="nextBtn" class="lightbox-nav right">&#10095;</button>
+    <img id="lightboxImg" src="" alt="">
+    <div id="lightboxThumbs" class="lightbox-thumbs"></div>
+  </div>
 
+  <script src="script.js"></script>
+  <script src="drawings.js"></script>
 </body>
 </html>

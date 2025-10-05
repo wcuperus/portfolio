@@ -47,7 +47,7 @@ main {
   transition: transform 0.3s;
 }
 
-.gallery img:hover, .gallery video:hover {
+.gallery img:hover {
   transform: scale(1.05);
 }
 
@@ -219,4 +219,67 @@ footer {
 .lightbox-thumbs img.active {
   border-color: #ff9800;
   transform: scale(1.1);
+}
+
+.social-cards {
+  display: flex;
+  gap: 1.5em;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1em;
+}
+
+.social-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  background: #f0f0f0;
+  border-radius: 15px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.social-card img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 0.5em;
+}
+
+.social-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.social-card.linkedin { background-color: #0077b5; color: white; }
+.social-card.github { background-color: #333; color: white; }
+
+/* ==============================
+   Tekeningen Gallerij
+   ============================== */
+#drawingsGallery {
+  display: flex;
+  flex-wrap: wrap;           /* automatisch nieuwe rijen */
+  justify-content: center;   /* centreren van de rijen */
+  gap: 20px;                 /* vaste afstand tussen afbeeldingen */
+  padding: 2em;
+}
+
+/* Afbeeldingen in de tekeningengallerij */
+#drawingsGallery img {
+  height: 250px;             /* vaste hoogte */
+  width: auto;               /* breedte past aan, aspect ratio behouden */
+  object-fit: contain;       /* aspect ratio behouden, niet bijsnijden */
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+#drawingsGallery img:hover {
+  transform: scale(1.05);
 }
