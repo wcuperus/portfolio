@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mijn Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Welkom op mijn Portfolio</h1>
+    <nav>
+      <div id="navbar"></div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h2>Over Mij</h2>
+      <p>Dit is mijn persoonlijke portfolio waar ik mijn beste werk deel, inclusief foto's, video's en tekeningen.</p>
+    </section>
+
+    <section class="features">
+      <h2>Wat je kunt vinden</h2>
+      <div class="cards">
+        <div class="card" onclick="navigateTo('fotos.html')">📸 Foto's</div>
+        <div class="card" onclick="navigateTo('videos.html')">🎥 Video's</div>
+        <div class="card" onclick="navigateTo('tekeningen.html')">🎨 Tekeningen</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Mijn Naam</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

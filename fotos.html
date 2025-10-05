@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foto's - Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Foto's</h1>
+    <nav>
+      <div id="navbar"></div>
+    </nav>
+  </header>
+
+<main class="gallery photo-gallery" id="photoGallery">
+  <!-- Afbeeldingen worden hier door JavaScript ingeladen -->
+</main>
+
+<!-- Lightbox voor grote weergave -->
+<div id="lightbox" class="lightbox hidden">
+  <button id="closeLightbox" class="lightbox-close">&times;</button>
+  <button id="prevBtn" class="lightbox-nav left">&#10094;</button>
+  <button id="nextBtn" class="lightbox-nav right">&#10095;</button>
+  <img id="lightboxImg" src="" alt="">
+  <div id="lightboxThumbs" class="lightbox-thumbs"></div>
+</div>
+
+<script src="images.js"></script>
+<script src="script.js"></script>
+
+
+</body>
+</html>
