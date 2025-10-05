@@ -1,9 +1,13 @@
+// ================================
+// Algemene functies
+// ================================
+
 // Navigatie vanaf de kaarten
 function navigateTo(page) {
   window.location.href = page;
 }
 
-// Navbar includer (zonder fetch, werkt ook lokaal via file://)
+// Navbar includer
 function loadNavbar() {
   const navbarHTML = `
     <nav>
@@ -15,25 +19,33 @@ function loadNavbar() {
       </ul>
     </nav>
   `;
+  const navbarContainer = document.getElementById("navbar");
+  if (navbarContainer) {
+    navbarContainer.innerHTML = navbarHTML;
 
-  document.getElementById("navbar").innerHTML = navbarHTML;
-
-  // Active link highlight
-  const links = document.querySelectorAll("#navbar a");
-  links.forEach(link => {
-    if (link.href === window.location.href) {
-      link.classList.add("active");
-    }
-  });
+    // Active link highlight
+    const links = navbarContainer.querySelectorAll("a");
+    links.forEach(link => {
+      if (link.href === window.location.href) {
+        link.classList.add("active");
+      }
+    });
+  }
 }
 
+// ================================
+// Fotos.html functies
+// ================================
+
+let currentIndex = 0;
+
+// Laad foto's in gallery
 function loadPhotos() {
-  if (typeof images === "undefined" || images.length === 0) {
-    console.error("Geen afbeeldingen gevonden!");
+  const gallery = document.getElementById("photoGallery");
+  if (!gallery || typeof images === "undefined" || images.length === 0) {
+    console.warn("Geen afbeeldingen gevonden of deze pagina heeft geen photoGallery.");
     return;
   }
-
-  const gallery = document.getElementById("photoGallery");
 
   images.forEach((filename, index) => {
     const img = document.createElement("img");
@@ -47,15 +59,15 @@ function loadPhotos() {
   });
 }
 
-// Lightbox functionaliteit
-let currentIndex = 0;
-
+// Open lightbox
 function openLightbox(index) {
-  currentIndex = index;
   const lightbox = document.getElementById("lightbox");
   const lightboxImg = document.getElementById("lightboxImg");
   const thumbsContainer = document.getElementById("lightboxThumbs");
 
+  if (!lightbox || !lightboxImg || !thumbsContainer) return;
+
+  currentIndex = index;
   lightbox.classList.remove("hidden");
   lightboxImg.src = `afbeeldingen/${images[currentIndex]}`;
 
@@ -74,6 +86,7 @@ function openLightbox(index) {
   });
 }
 
+// Update thumbnail highlight
 function updateThumbs() {
   const thumbs = document.querySelectorAll("#lightboxThumbs img");
   thumbs.forEach((thumb, i) => {
@@ -81,26 +94,41 @@ function updateThumbs() {
   });
 }
 
-// Navigatie knoppen
-document.getElementById("prevBtn").addEventListener("click", () => {
-  currentIndex = (currentIndex - 1 + images.length) % images.length;
-  document.getElementById("lightboxImg").src = `afbeeldingen/${images[currentIndex]}`;
-  updateThumbs();
-});
+// Lightbox navigatie knoppen
+function setupLightboxButtons() {
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const closeBtn = document.getElementById("closeLightbox");
+  const lightboxImg = document.getElementById("lightboxImg");
 
-document.getElementById("nextBtn").addEventListener("click", () => {
-  currentIndex = (currentIndex + 1) % images.length;
-  document.getElementById("lightboxImg").src = `afbeeldingen/${images[currentIndex]}`;
-  updateThumbs();
-});
+  if (prevBtn && nextBtn && closeBtn && lightboxImg) {
+    prevBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      lightboxImg.src = `afbeeldingen/${images[currentIndex]}`;
+      updateThumbs();
+    });
 
-document.getElementById("closeLightbox").addEventListener("click", () => {
-  document.getElementById("lightbox").classList.add("hidden");
-});
+    nextBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      lightboxImg.src = `afbeeldingen/${images[currentIndex]}`;
+      updateThumbs();
+    });
 
+    closeBtn.addEventListener("click", () => {
+      document.getElementById("lightbox").classList.add("hidden");
+    });
+  }
+}
 
-
+// ================================
+// DOMContentLoaded
+// ================================
 document.addEventListener("DOMContentLoaded", () => {
   loadNavbar();
-  loadPhotos();
+
+  // Fotos.html check
+  if (document.getElementById("photoGallery")) {
+    loadPhotos();
+    setupLightboxButtons();
+  }
 });
