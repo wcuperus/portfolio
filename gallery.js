@@ -14,6 +14,10 @@ function loadPhotos() {
     img.alt = filename.split(".")[0];
     img.dataset.index = index;
     img.addEventListener("click", () => openLightbox(index));
+      img.loading = "lazy"; // optimalisatie
+  img.addEventListener("load", () => {
+    img.classList.add("loaded"); // activeert de fade-in animatie
+  });
     gallery.appendChild(img);
   });
 }

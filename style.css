@@ -291,6 +291,7 @@ footer {
 
 /* Hover effect */
 #photoGallery.photo-gallery img:hover {
+  cursor: pointer;
   transform: scale(1.05);
   transition: transform 0.3s;
 }
@@ -549,4 +550,21 @@ body.photos-page .hamburger,
 body.drawings-page .hamburger {
   pointer-events: none;  /* knop wordt niet klikbaar */
   opacity: 0.5;          /* optioneel: visueel aangeven dat het niet actief is */
+}
+
+/* ==============================
+   Fade-in animatie voor galerijafbeeldingen
+   ============================== */
+.gallery img,
+#drawingsGallery img {
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Wanneer de afbeelding geladen is */
+.gallery img.loaded,
+#drawingsGallery img.loaded {
+  opacity: 1;
+  transform: scale(1);
 }

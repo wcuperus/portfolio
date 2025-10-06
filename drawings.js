@@ -6,10 +6,19 @@ function initDrawingsGallery(galleryId) {
 
   const images = Array.from(gallery.querySelectorAll("img"));
 
-  images.forEach((img, index) => {
-    img.dataset.index = index;
-    img.addEventListener("click", () => openLightbox(images, index));
-  });
+images.forEach((img, index) => {
+  img.dataset.index = index;
+
+  // fade-in animatie
+  if (img.complete) {
+    img.classList.add("loaded");
+  } else {
+    img.addEventListener("load", () => img.classList.add("loaded"));
+  }
+
+  img.addEventListener("click", () => openLightbox(images, index));
+});
+
 
   setupLightboxButtons(images);
 }
