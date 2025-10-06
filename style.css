@@ -289,12 +289,25 @@ footer {
   }
 }
 
+/* Fade-in voor foto’s */
+#photoGallery.photo-gallery img {
+  opacity: 0;                     /* beginwaarde */
+  transform: scale(0.98);         /* beginwaarde voor lichte zoom */
+  transition: transform 0.3s ease, opacity 0.6s ease;
+}
+
 /* Hover effect */
 #photoGallery.photo-gallery img:hover {
-  cursor: pointer;
   transform: scale(1.05);
-  transition: transform 0.3s;
+  cursor: pointer;
 }
+
+/* Wanneer afbeelding geladen is (fade-in) */
+#photoGallery.photo-gallery img.loaded {
+  opacity: 1;
+  transform: scale(1);
+}
+
 
 
 
