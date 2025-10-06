@@ -378,19 +378,37 @@ footer {
   padding: 2em;
 }
 
-/* Afbeeldingen in de tekeningengallerij */
 #drawingsGallery img {
-  height: 250px;             /* vaste hoogte */
-  width: auto;               /* breedte past aan, aspect ratio behouden */
-  object-fit: contain;       /* aspect ratio behouden, niet bijsnijden */
+  height: 250px;
+  width: auto;
+  object-fit: contain;
   border-radius: 10px;
   cursor: pointer;
-  transition: transform 0.3s;
+
+  /* gecombineerde overgang voor alles */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.6s ease;
 }
 
+/* Hover effect */
 #drawingsGallery img:hover {
   transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
+
+/* Fade-in animatie */
+#drawingsGallery img {
+  opacity: 0;
+  transform: scale(0.98); /* beginwaarde */
+}
+
+/* Wanneer afbeelding geladen is */
+#drawingsGallery img.loaded {
+  opacity: 1;
+  transform: scale(1); /* eindwaarde fade-in */
+}
+
+
+
 
 /* ==============================
    Tekstopmaak consistentie
@@ -550,21 +568,4 @@ body.photos-page .hamburger,
 body.drawings-page .hamburger {
   pointer-events: none;  /* knop wordt niet klikbaar */
   opacity: 0.5;          /* optioneel: visueel aangeven dat het niet actief is */
-}
-
-/* ==============================
-   Fade-in animatie voor galerijafbeeldingen
-   ============================== */
-.gallery img,
-#drawingsGallery img {
-  opacity: 0;
-  transform: scale(0.98);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-/* Wanneer de afbeelding geladen is */
-.gallery img.loaded,
-#drawingsGallery img.loaded {
-  opacity: 1;
-  transform: scale(1);
 }
