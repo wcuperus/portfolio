@@ -37,8 +37,27 @@ function openLightbox(images, index) {
     });
     thumbsContainer.appendChild(thumb);
   });
-  updateThumbs();
+
+  // Scroll direct naar geselecteerde thumbnail
+  scrollActiveThumbIntoView(true);
 }
+
+function scrollActiveThumbIntoView(initial = false) {
+  const thumbsContainer = document.getElementById("lightboxThumbs");
+  const activeThumb = thumbsContainer?.querySelector("img.active");
+  if (!thumbsContainer || !activeThumb) return;
+
+  const containerRect = thumbsContainer.getBoundingClientRect();
+  const thumbRect = activeThumb.getBoundingClientRect();
+
+  const offset = thumbRect.left - containerRect.left - (containerRect.width / 2) + (thumbRect.width / 2);
+
+  thumbsContainer.scrollBy({
+    left: offset,
+    behavior: initial ? "auto" : "smooth"
+  });
+}
+
 
 function updateThumbs() {
   const thumbs = document.querySelectorAll("#lightboxThumbs img");
