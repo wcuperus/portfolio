@@ -60,7 +60,11 @@ function updateThumbs() {
   thumbs.forEach((thumb, i) => {
     thumb.classList.toggle("active", i === currentIndex);
   });
+
+  // Scroll de actieve thumbnail in beeld
+  scrollActiveThumbIntoView();
 }
+
 
 function setupLightboxButtons() {
   const prevBtn = document.getElementById("prevBtn");
@@ -87,6 +91,24 @@ function setupLightboxButtons() {
     if (lightbox) lightbox.classList.add("hidden");
   });
 }
+
+function scrollActiveThumbIntoView() {
+  const thumbsContainer = document.getElementById("lightboxThumbs");
+  const activeThumb = thumbsContainer?.querySelector("img.active");
+  if (!thumbsContainer || !activeThumb) return;
+
+  // Bereken zodat de actieve thumbnail gecentreerd is
+  const containerRect = thumbsContainer.getBoundingClientRect();
+  const thumbRect = activeThumb.getBoundingClientRect();
+
+  const offset = thumbRect.left - containerRect.left - (containerRect.width / 2) + (thumbRect.width / 2);
+
+  thumbsContainer.scrollBy({
+    left: offset,
+    behavior: "smooth"
+  });
+}
+
 
 // Alleen fotos.html
 document.addEventListener("DOMContentLoaded", () => {

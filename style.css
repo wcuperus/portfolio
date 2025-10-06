@@ -34,44 +34,123 @@ main {
   padding: 2em;
 }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5em; 
-  padding: 2em;
-}
-
-.gallery img, .gallery video {
-  width: 100%;
-  border-radius: 10px;
-  transition: transform 0.3s;
-}
-
-.gallery img:hover {
-  transform: scale(1.05);
-}
-
 .cards {
-  display: flex;
-  justify-content: center;
-  gap: 2em;
-  margin-top: 2em;
+  display: grid;
+  grid-auto-flow: row;                /* normale rijvolgorde */
+  justify-content: center;            /* centreren van de volledige rij */
+  gap: 0.5em;                         /* ruimte tussen kaarten */
+  grid-template-columns: repeat(auto-fit, minmax(80px, 120px)); /* minimale en maximale kaartbreedte */
+  padding: 0 1em;                     /* witruimte links en rechts */
+  box-sizing: border-box;
 }
 
+
+
+/* Basiskaartstijl */
 .card {
-  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background: #f0f0f0;
   border-radius: 15px;
-  cursor: pointer;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
   text-align: center;
-  transition: background 0.3s, transform 0.3s;
+
+  aspect-ratio: 1 / 1;       /* vierkant */
+  min-width: 80px;           /* voorkom te klein */
+  max-width: 120px;          /* voorkom te groot op desktop */
 }
 
+
+
+/* Hover effect */
 .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
   background: #ff9800;
   color: white;
-  transform: translateY(-5px);
 }
+
+/* Afbeeldingen en tekst */
+.card img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 0.5em;
+}
+
+.card span:first-child { font-size: 2em; }
+.card span:last-child  { font-size: 0.9em; margin-top: 0.3em; }
+
+/* Social media kleuren */
+.card.linkedin { background-color: #0077b5; color: white; }
+.card.github   { background-color: #333; color: white; }
+
+/* Unieke kleuren gewone kaarten */
+.card.photo    { background-color: #f0f0f0; color: #333; }
+.card.video    { background-color: #e0f7fa; color: #333; }
+.card.drawing  { background-color: #fff3e0; color: #333; }
+
+/* Zeer klein scherm (<360px) */
+@media (max-width: 359px) {
+  .cards {
+    grid-template-columns: repeat(2, minmax(80px, 1fr));
+  }
+  .card { max-width: 80px; }
+}
+
+/* Klein scherm (360px – 479px) */
+@media (min-width: 360px) and (max-width: 479px) {
+  .cards {
+    grid-template-columns: repeat(2, minmax(90px, 1fr));
+  }
+  .card { max-width: 90px; }
+}
+
+/* Mobiel (480px – 599px) */
+@media (min-width: 480px) and (max-width: 599px) {
+  .cards {
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+  }
+  .card { max-width: 100px; }
+}
+
+/* Tablet klein (600px – 767px) */
+@media (min-width: 600px) and (max-width: 767px) {
+  .cards {
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+  }
+  .card { max-width: 110px; }
+}
+
+/* Tablet groot / desktop klein (768px – 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cards {
+    grid-template-columns: repeat(4, minmax(120px, 1fr));
+  }
+  .card { max-width: 120px; }
+}
+
+/* Desktop (>1024px) */
+@media (min-width: 1024px) {
+  .cards {
+    grid-template-columns: repeat(5, minmax(120px, 1fr));
+  }
+  .card { max-width: 120px; }
+}
+
+
+
+
+
+
+
+
+
 
 footer {
   text-align: center;
@@ -81,23 +160,63 @@ footer {
   margin-top: 2em;
 }
 
+/* ====== Videogalerij (videos.html) ====== */
+.gallery {
+  display: grid;
+  justify-content: center;          /* centreert de grid */
+  gap: 2em;
+  padding: 2em;
+}
+
+/* De figuren (video + tekst) netjes centreren */
 .gallery figure {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5em;
   background: #f9f9f9;
   padding: 1em;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  max-width: 100%;
 }
 
+/* Video’s vullen de beschikbare breedte, behouden verhouding */
+.gallery video {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Tekst onder de video */
 .gallery figcaption {
+  margin-top: 0.8em;
   font-size: 0.9em;
   color: #555;
   text-align: center;
   max-width: 400px;
 }
+
+/* 📱 Mobiel: 1 kolom */
+@media (max-width: 600px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 💻 Tablet: 2 kolommen */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .gallery {
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+  }
+}
+
+/* 🖥️ Desktop: 3 kolommen */
+@media (min-width: 1025px) {
+  .gallery {
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
+  }
+}
+
 
 /* Gallery voor fotos.html */
 #photoGallery.photo-gallery {
@@ -221,44 +340,6 @@ footer {
   transform: scale(1.1);
 }
 
-.social-cards {
-  display: flex;
-  gap: 1.5em;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 1em;
-}
-
-.social-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 120px;
-  height: 120px;
-  background: #f0f0f0;
-  border-radius: 15px;
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.social-card img {
-  width: 50px;
-  height: 50px;
-  margin-bottom: 0.5em;
-}
-
-.social-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-.social-card.linkedin { background-color: #0077b5; color: white; }
-.social-card.github { background-color: #333; color: white; }
-
 /* ==============================
    Tekeningen Gallerij
    ============================== */
@@ -282,4 +363,158 @@ footer {
 
 #drawingsGallery img:hover {
   transform: scale(1.05);
+}
+
+/* ==============================
+   Tekstopmaak consistentie
+   ============================== */
+
+/* Algemene tekstopmaak — NIET voor de video-gallery */
+main:not(.gallery), section.intro {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+  line-height: 1.6;
+  font-size: 1.1em;
+}
+
+
+/* Hoofdtitels consistent */
+h1 {
+  text-align: center;
+  margin-top: 1em;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+/* Subtitels consistent (zoals "Over Mij", "Wat je kunt vinden", etc.) */
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+  color: #222;
+  text-align: center;
+}
+
+/* Paragraafstijl */
+p {
+  margin-bottom: 1.2em;
+  color: #444;
+  text-align: justify; /* zelfde gevoel als de video's pagina */
+}
+
+/* Links in tekst (zoals in KerstKnallers) */
+p a {
+  color: #ff9800;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+/* ==============================
+   RESPONSIVE NAVIGATIE
+   ============================== */
+
+nav {
+  background: #222;
+  padding: 0.5em 1em;
+}
+
+/* Desktop / tablet */
+nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+  margin: 0;
+}
+
+nav li {
+  margin: 0;
+}
+
+/* Mobiel (max-width 768px) */
+@media (max-width: 768px) {
+  nav {
+    position: relative;   /* basis voor absolute positioning */
+    padding-bottom: 3em;  /* ruimte onderaan voor hamburger */
+  }
+
+  /* Hamburger knop gecentreerd onderaan */
+  .hamburger {
+    display: flex;
+    position: absolute;
+    bottom: 0;              /* onderkant van nav */
+    left: 50%;              /* horizontaal midden */
+    transform: translateX(-50%);
+    flex-direction: column;
+    width: 40px;            /* breedte hamburger */
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+  .hamburger span {
+    height: 3px;
+    width: 100%;
+    background: white;
+    margin: 4px 0;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  /* Mobile menu */
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    background: #222;
+    width: 100%;
+    display: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav ul.show {
+    display: flex;
+  }
+
+  nav a {
+    display: block;
+    padding: 0.8em;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
+
+/* Verbeter spacing en schaalbaarheid voor kleine schermen */
+@media (max-width: 600px) {
+  body {
+    font-size: 0.95em;
+  }
+
+  header {
+    padding: 0.8em;
+  }
+
+  main {
+    padding: 1em;
+  }
+
+  .cards {
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .card {
+    width: 100%;
+    padding: 1.5em;
+  }
+
+  footer {
+    font-size: 0.9em;
+  }
 }
