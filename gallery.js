@@ -30,6 +30,7 @@ function initGallery(galleryId) {
   });
 }
 
+
 function openLightbox(index) {
   const lightbox = document.getElementById("lightbox");
   const lightboxImg = document.getElementById("lightboxImg");
