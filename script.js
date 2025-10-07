@@ -301,15 +301,15 @@ function initSlideshow() {
     switch(slide.type) {
       case "photo":
         src = "afbeeldingen/" + getRandomImage(images);
-        alt = "Foto";
+        alt = "Bekijk mijn foto's";
         break;
       case "drawing":
         src = getRandomImage(drawings);
-        alt = "Tekening";
+        alt = "Bekijk mijn tekeningen";
         break;
       case "video":
         src = "data/video.jpg";
-        alt = "Video";
+        alt = "Bekijk mijn video's";
         break;
       case "github":
         src = "data/Github_preview.png";
