@@ -298,6 +298,7 @@ function addFooter() {
 }
 
 
+
 document.addEventListener("DOMContentLoaded", () => {
   loadNavbar();
   enableHamburger();
