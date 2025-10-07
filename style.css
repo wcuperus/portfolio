@@ -5,6 +5,8 @@ body {
   color: #333;
 }
 
+
+
 header {
   background: #222;
   color: white;
@@ -236,7 +238,6 @@ footer {
   }
 }
 
-/* 🖥️ Desktop: 3 kolommen */
 @media (min-width: 1025px) {
   .gallery {
     grid-template-columns: repeat(3, minmax(300px, 1fr));
@@ -244,14 +245,12 @@ footer {
 }
 
 
-/* Gallery voor fotos.html */
 #photoGallery.photo-gallery {
   display: grid;
   justify-content: center; /* centreren van de grid */
   gap: 10px;
 }
 
-/* Desktop: altijd 5 kolommen */
 @media (min-width: 1024px) {
   #photoGallery.photo-gallery {
     grid-template-columns: repeat(5, 200px); /* 5 kolommen van 200px */
@@ -264,7 +263,6 @@ footer {
   }
 }
 
-/* Tablet/medium schermen: automatisch schalen tussen 3 en 5 kolommen */
 @media (min-width: 600px) and (max-width: 1023px) {
   #photoGallery.photo-gallery {
     grid-template-columns: repeat(5, minmax(150px, 1fr));
@@ -276,7 +274,6 @@ footer {
   }
 }
 
-/* Mobiel: altijd 3 kolommen */
 @media (max-width: 599px) {
   #photoGallery.photo-gallery {
     grid-template-columns: repeat(3, 1fr); /* 3 kolommen die de breedte vullen */
@@ -289,20 +286,20 @@ footer {
   }
 }
 
-/* Fade-in voor foto’s */
 #photoGallery.photo-gallery img {
   opacity: 0;                     /* beginwaarde */
   transform: scale(0.98);         /* beginwaarde voor lichte zoom */
   transition: transform 0.3s ease, opacity 0.6s ease;
-}
-
-/* Hover effect */
-#photoGallery.photo-gallery img:hover {
-  transform: scale(1.05);
   cursor: pointer;
 }
 
-/* Wanneer afbeelding geladen is (fade-in) */
+#photoGallery.photo-gallery img:hover,
+#drawingsGallery img:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  z-index: 2;
+}
+
 #photoGallery.photo-gallery img.loaded {
   opacity: 1;
   transform: scale(1);
@@ -312,40 +309,44 @@ footer {
 
 
 
-/* Lightbox */
 .lightbox {
   position: fixed;
-  top:0; left:0; right:0; bottom:0;
-  background: rgba(0,0,0,0.9);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  padding: 20px 0; 
+  overflow: hidden;
+  z-index: 999;
 }
 
-.lightbox.hidden { display: none; }
+.lightbox.hidden {
+  display: none;
+}
 
-.lightbox img {
+.lightbox-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 90vw;
+}
+
+.lightbox img#lightboxImg {
   max-width: 80%;
-  max-height: 70%;
-  margin-bottom: 1em;
+  max-height: 70vh;       /* past altijd op scherm */
   border-radius: 10px;
-}
-
-.lightbox-close {
-  position: absolute;
-  top: 10px; right: 20px;
-  font-size: 2em;
-  color: white;
-  background: none;
-  border: none;
-  cursor: pointer;
+  display: block;
+  margin: 0 auto;
 }
 
 .lightbox-nav {
   position: absolute;
   top: 50%;
+  transform: translateY(-50%);
   font-size: 3em;
   color: white;
   background: none;
@@ -354,18 +355,33 @@ footer {
   user-select: none;
 }
 
-.lightbox-nav.left { left: 10px; transform: translateY(-50%); }
-.lightbox-nav.right { right: 10px; transform: translateY(-50%); }
+.lightbox-nav.left { left: 10px; }
+.lightbox-nav.right { right: 10px; }
 
-/* Thumbnails */
+.lightbox-close {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 2em;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+}
+
 .lightbox-thumbs {
   display: flex;
-  overflow-x: auto;
-  max-width: 90%;
+  justify-content: flex-start;
   gap: 5px;
+  padding: 10px 20px;
+  overflow-x: auto;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .lightbox-thumbs img {
+  flex-shrink: 0;
   width: 60px;
   height: 60px;
   object-fit: cover;
@@ -379,6 +395,9 @@ footer {
   border-color: #ff9800;
   transform: scale(1.1);
 }
+
+
+
 
 /* ==============================
    Tekeningen Gallerij
@@ -402,11 +421,6 @@ footer {
   transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.6s ease;
 }
 
-/* Hover effect */
-#drawingsGallery img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
 
 /* Fade-in animatie */
 #drawingsGallery img {
@@ -423,18 +437,26 @@ footer {
 
 
 
-/* ==============================
-   Tekstopmaak consistentie
-   ============================== */
-
-/* Algemene tekstopmaak — NIET voor de video-gallery */
-main:not(.gallery), section.intro {
-  max-width: 900px;
-  margin: 0 auto;
+/* Algemene tekstopmaak — altijd witruimte */
+main:not(.gallery),
+section.intro {
+  max-width: 900px;       /* voorkomt te brede tekst op desktop */
+  margin: 0 auto;         /* centreert de container */
+  padding: 0 1em;         /* altijd 1em witruimte links/rechts */
   text-align: left;
   line-height: 1.6;
   font-size: 1.1em;
+  box-sizing: border-box; /* padding wordt bij de breedte opgeteld */
 }
+
+/* Kleine schermen: padding behouden */
+@media (max-width: 599px) {
+  main:not(.gallery),
+  section.intro {
+    padding: 0 1em;       /* behoud witruimte op mobiel */
+  }
+}
+
 
 
 /* Hoofdtitels consistent */
@@ -579,6 +601,131 @@ nav li {
 
 body.photos-page .hamburger,
 body.drawings-page .hamburger {
-  pointer-events: none;  /* knop wordt niet klikbaar */
-  opacity: 0.5;          /* optioneel: visueel aangeven dat het niet actief is */
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+footer, .footer {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 1em;
+  margin-top: 2em;
+  position: relative;
+}
+
+.footer a, footer a {
+  color: #ff9800;
+  text-decoration: none;
+  margin: 0 0.5em;
+}
+
+.footer a:hover, footer a:hover {
+  text-decoration: underline;
+}
+
+footer button.back-to-top {
+  display: inline-block;
+  margin-top: 0.8em;
+  padding: 0.5em 1em;
+  font-size: 0.9em;
+  border: none;
+  border-radius: 5px;
+  background-color: #ff9800;
+  color: white;
+  cursor: pointer;
+}
+
+.slideshow-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 2em auto;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  aspect-ratio: 16/9; /* vaste ratio 16:9 */
+}
+
+/* Slide wrapper voor animatie */
+.slide-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Slideshow afbeeldingen */
+.slideshow-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* behoudt aspect ratio, witruimte indien nodig */
+  border-radius: 10px;
+  opacity: 0;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+/* Actieve afbeelding */
+.slideshow-container img.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Slide animatie naar links of rechts */
+.slideshow-container img.slide-in-left {
+  transform: translateX(-100%);
+}
+
+.slideshow-container img.slide-in-right {
+  transform: translateX(100%);
+}
+
+/* Navigatieknoppen */
+.slideshow-container .prev,
+.slideshow-container .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 12px;
+  font-size: 24px;
+  border-radius: 3px;
+  background-color: rgba(255,255,255,0.7);
+  user-select: none;
+  z-index: 10;
+}
+
+.slideshow-container .prev { left: 10px; }
+.slideshow-container .next { right: 10px; }
+
+/* Caption */
+#slide-caption {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 0.5em;
+  font-weight: bold;
+  background: rgba(255,255,255,0.6);
+  box-sizing: border-box;
+  border-top: 1px solid #ccc;
+}
+
+/* Hover effect */
+.slideshow-container img:hover {
+  transform: scale(1.02);
+  transition: transform 0.5s;
 }

@@ -1,5 +1,7 @@
 const images = [
   "20190716_185924.jpg",
+  "IMG20250824152328.jpg",
+  "IMG20250914140834.jpg",
   "IMG_1144.JPG",
   "IMG_1580.jpg",
   "IMG_1921.jpeg",

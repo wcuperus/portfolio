@@ -1,7 +1,3 @@
-// ================================
-// Fotos.html gallery + lightbox
-// ================================
-
 let currentIndex = 0;
 
 function loadPhotos() {
@@ -14,9 +10,9 @@ function loadPhotos() {
     img.alt = filename.split(".")[0];
     img.dataset.index = index;
     img.addEventListener("click", () => openLightbox(index));
-      img.loading = "lazy"; // optimalisatie
+      img.loading = "lazy";
   img.addEventListener("load", () => {
-    img.classList.add("loaded"); // activeert de fade-in animatie
+    img.classList.add("loaded");
   });
     gallery.appendChild(img);
   });
@@ -45,7 +41,8 @@ function openLightbox(index) {
   lightbox.classList.remove("hidden");
   lightboxImg.src = `afbeeldingen/${images[currentIndex]}`;
 
-  // Thumbnails
+  disableHamburger();
+
   thumbsContainer.innerHTML = "";
   images.forEach((imgName, i) => {
     const thumb = document.createElement("img");
@@ -59,7 +56,6 @@ function openLightbox(index) {
     thumbsContainer.appendChild(thumb);
   });
 
-  // Scroll direct naar de geselecteerde thumbnail
   scrollActiveThumbIntoView(true);
 }
 
@@ -75,7 +71,7 @@ function scrollActiveThumbIntoView(initial = false) {
 
   thumbsContainer.scrollBy({
     left: offset,
-    behavior: initial ? "auto" : "smooth"  // bij openen direct, later smooth
+    behavior: initial ? "auto" : "smooth" 
   });
 }
 
@@ -86,7 +82,6 @@ function updateThumbs() {
     thumb.classList.toggle("active", i === currentIndex);
   });
 
-  // Scroll de actieve thumbnail in beeld
   scrollActiveThumbIntoView();
 }
 
@@ -113,7 +108,10 @@ function setupLightboxButtons() {
 
   closeBtn.addEventListener("click", () => {
     const lightbox = document.getElementById("lightbox");
-    if (lightbox) lightbox.classList.add("hidden");
+    if (lightbox) {
+      lightbox.classList.add("hidden");
+      enableHamburger(); // 🔓 Zet hamburger weer aan
+    }
   });
 }
 
@@ -122,7 +120,6 @@ function scrollActiveThumbIntoView() {
   const activeThumb = thumbsContainer?.querySelector("img.active");
   if (!thumbsContainer || !activeThumb) return;
 
-  // Bereken zodat de actieve thumbnail gecentreerd is
   const containerRect = thumbsContainer.getBoundingClientRect();
   const thumbRect = activeThumb.getBoundingClientRect();
 
@@ -135,7 +132,6 @@ function scrollActiveThumbIntoView() {
 }
 
 
-// Alleen fotos.html
 document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("photoGallery")) {
     loadPhotos();

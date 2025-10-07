@@ -22,14 +22,18 @@
   <!-- Afbeeldingen worden hier door JavaScript ingeladen -->
 </main>
 
-<!-- Lightbox voor grote weergave -->
 <div id="lightbox" class="lightbox hidden">
   <button id="closeLightbox" class="lightbox-close">&times;</button>
-  <button id="prevBtn" class="lightbox-nav left">&#10094;</button>
-  <button id="nextBtn" class="lightbox-nav right">&#10095;</button>
-  <img id="lightboxImg" src="" alt="">
+
+  <div class="lightbox-content">
+    <button id="prevBtn" class="lightbox-nav left">&#10094;</button>
+    <img id="lightboxImg" src="" alt="">
+    <button id="nextBtn" class="lightbox-nav right">&#10095;</button>
+  </div>
+
   <div id="lightboxThumbs" class="lightbox-thumbs"></div>
 </div>
+
 
 <script src="images.js"></script>
 <script src="gallery.js"></script>

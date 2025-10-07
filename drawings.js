@@ -33,6 +33,9 @@ function openLightbox(images, index) {
   lightbox.classList.remove("hidden");
   lightboxImg.src = images[currentIndex].src;
 
+  // 🔒 Hamburger uit
+  disableHamburger();
+
   // Thumbnails
   thumbsContainer.innerHTML = "";
   images.forEach((img, i) => {
@@ -47,7 +50,6 @@ function openLightbox(images, index) {
     thumbsContainer.appendChild(thumb);
   });
 
-  // Scroll direct naar geselecteerde thumbnail
   scrollActiveThumbIntoView(true);
 }
 
@@ -101,7 +103,10 @@ function setupLightboxButtons(images) {
 
   closeBtn.addEventListener("click", () => {
     const lightbox = document.getElementById("lightbox");
-    if (lightbox) lightbox.classList.add("hidden");
+    if (lightbox) {
+      lightbox.classList.add("hidden");
+      enableHamburger(); // 🔓 Zet hamburger weer aan
+    }
   });
 }
 
