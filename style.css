@@ -5,12 +5,10 @@ body {
   color: #333;
 }
 
-
-
 header {
   background: #222;
   color: white;
-  padding: 1em;
+  padding: 0.5em;
   text-align: center;
 }
 
@@ -38,17 +36,14 @@ main {
 
 .cards {
   display: grid;
-  grid-auto-flow: row;                /* normale rijvolgorde */
-  justify-content: center;            /* centreren van de volledige rij */
-  gap: 0.5em;                         /* ruimte tussen kaarten */
-  grid-template-columns: repeat(auto-fit, minmax(80px, 120px)); /* minimale en maximale kaartbreedte */
-  padding: 0 1em;                     /* witruimte links en rechts */
+  grid-auto-flow: row;
+  justify-content: center;
+  gap: 0.5em;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 120px)); 
+  padding: 0 1em;
   box-sizing: border-box;
 }
 
-
-
-/* Basiskaartstijl */
 .card {
   display: flex;
   flex-direction: column;
@@ -63,14 +58,11 @@ main {
   transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
   text-align: center;
 
-  aspect-ratio: 1 / 1;       /* vierkant */
-  min-width: 80px;           /* voorkom te klein */
-  max-width: 120px;          /* voorkom te groot op desktop */
+  aspect-ratio: 1 / 1;
+  min-width: 80px;
+  max-width: 120px;
 }
 
-
-
-/* Hover effect */
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
@@ -78,7 +70,6 @@ main {
   color: white;
 }
 
-/* Afbeeldingen en tekst */
 .card img {
   width: 50px;
   height: 50px;
@@ -88,16 +79,13 @@ main {
 .card span:first-child { font-size: 2em; }
 .card span:last-child  { font-size: 0.9em; margin-top: 0.3em; }
 
-/* Social media kleuren */
 .card.linkedin { background-color: #0077b5; color: white; }
 .card.github   { background-color: #333; color: white; }
 
-/* Unieke kleuren gewone kaarten */
 .card.photo    { background-color: #f0f0f0; color: #333; }
 .card.video    { background-color: #e0f7fa; color: #333; }
 .card.drawing  { background-color: #fff3e0; color: #333; }
 
-/* Zeer klein scherm (<360px) */
 @media (max-width: 359px) {
   .cards {
     grid-template-columns: repeat(2, minmax(80px, 1fr));
@@ -105,7 +93,6 @@ main {
   .card { max-width: 80px; }
 }
 
-/* Klein scherm (360px – 479px) */
 @media (min-width: 360px) and (max-width: 479px) {
   .cards {
     grid-template-columns: repeat(2, minmax(90px, 1fr));
@@ -113,7 +100,6 @@ main {
   .card { max-width: 90px; }
 }
 
-/* Mobiel (480px – 599px) */
 @media (min-width: 480px) and (max-width: 599px) {
   .cards {
     grid-template-columns: repeat(2, minmax(100px, 1fr));
@@ -121,7 +107,6 @@ main {
   .card { max-width: 100px; }
 }
 
-/* Tablet klein (600px – 767px) */
 @media (min-width: 600px) and (max-width: 767px) {
   .cards {
     grid-template-columns: repeat(3, minmax(100px, 1fr));
@@ -129,7 +114,6 @@ main {
   .card { max-width: 110px; }
 }
 
-/* Tablet groot / desktop klein (768px – 1023px) */
 @media (min-width: 768px) and (max-width: 1023px) {
   .cards {
     grid-template-columns: repeat(4, minmax(120px, 1fr));
@@ -137,7 +121,6 @@ main {
   .card { max-width: 120px; }
 }
 
-/* Desktop (>1024px) */
 @media (min-width: 1024px) {
   .cards {
     grid-template-columns: repeat(5, minmax(120px, 1fr));
@@ -145,58 +128,36 @@ main {
   .card { max-width: 120px; }
 }
 
-
-
-
-
-
-
-
-
-
-footer {
-  text-align: center;
-  padding: 1em;
-  background: #222;
-  color: white;
-  margin-top: 2em;
-}
-
-/* ====== Videogalerij (videos.html) ====== */
 .gallery {
   display: grid;
-  justify-content: center;           /* centreren van de grid */
-  gap: 0em;                          /* verminderde ruimte tussen video’s */
-  padding: 2em 4em;                  /* meer witruimte links en rechts */
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* max 3 per rij */
+  justify-content: center;
+  gap: 0em;
+  padding: 2em 4em;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   box-sizing: border-box;
 }
 
-/* Tablet / desktop: maximaal 3 kolommen */
 @media (min-width: 1025px) {
   .gallery {
-    grid-template-columns: repeat(3, 1fr); /* altijd max 3 kolommen */
+    grid-template-columns: repeat(3, 1fr); 
   }
 }
 
-/* Tablet medium schermen: max 2 per rij */
 @media (min-width: 601px) and (max-width: 1024px) {
   .gallery {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Mobiel: 1 kolom */
 @media (max-width: 600px) {
   .gallery {
     grid-template-columns: 1fr;
-    padding: 2em 1em;                  /* iets minder padding op mobiel */
-    gap: 0.8em;                        /* nog kleinere ruimte */
+    padding: 2em 1em;
+    gap: 0.8em;
   }
 }
 
 
-/* De figuren (video + tekst) netjes centreren */
 .gallery figure {
   display: flex;
   flex-direction: column;
@@ -208,14 +169,12 @@ footer {
   max-width: 100%;
 }
 
-/* Video’s vullen de beschikbare breedte, behouden verhouding */
 .gallery video {
   width: 100%;
   height: auto;
   border-radius: 10px;
 }
 
-/* Tekst onder de video */
 .gallery figcaption {
   margin-top: 0.8em;
   font-size: 0.9em;
@@ -224,14 +183,12 @@ footer {
   max-width: 400px;
 }
 
-/* 📱 Mobiel: 1 kolom */
 @media (max-width: 600px) {
   .gallery {
     grid-template-columns: 1fr;
   }
 }
 
-/* 💻 Tablet: 2 kolommen */
 @media (min-width: 601px) and (max-width: 1024px) {
   .gallery {
     grid-template-columns: repeat(2, minmax(250px, 1fr));
@@ -247,13 +204,13 @@ footer {
 
 #photoGallery.photo-gallery {
   display: grid;
-  justify-content: center; /* centreren van de grid */
+  justify-content: center;
   gap: 10px;
 }
 
 @media (min-width: 1024px) {
   #photoGallery.photo-gallery {
-    grid-template-columns: repeat(5, 200px); /* 5 kolommen van 200px */
+    grid-template-columns: repeat(5, 200px);
   }
 
   #photoGallery.photo-gallery img {
@@ -276,7 +233,7 @@ footer {
 
 @media (max-width: 599px) {
   #photoGallery.photo-gallery {
-    grid-template-columns: repeat(3, 1fr); /* 3 kolommen die de breedte vullen */
+    grid-template-columns: repeat(3, 1fr);
   }
 
   #photoGallery.photo-gallery img {
@@ -287,8 +244,8 @@ footer {
 }
 
 #photoGallery.photo-gallery img {
-  opacity: 0;                     /* beginwaarde */
-  transform: scale(0.98);         /* beginwaarde voor lichte zoom */
+  opacity: 0;
+  transform: scale(0.98);
   transition: transform 0.3s ease, opacity 0.6s ease;
   cursor: pointer;
 }
@@ -304,10 +261,6 @@ footer {
   opacity: 1;
   transform: scale(1);
 }
-
-
-
-
 
 .lightbox {
   position: fixed;
@@ -337,7 +290,7 @@ footer {
 
 .lightbox img#lightboxImg {
   max-width: 80%;
-  max-height: 70vh;       /* past altijd op scherm */
+  max-height: 70vh;
   border-radius: 10px;
   display: block;
   margin: 0 auto;
@@ -396,17 +349,11 @@ footer {
   transform: scale(1.1);
 }
 
-
-
-
-/* ==============================
-   Tekeningen Gallerij
-   ============================== */
 #drawingsGallery {
   display: flex;
-  flex-wrap: wrap;           /* automatisch nieuwe rijen */
-  justify-content: center;   /* centreren van de rijen */
-  gap: 20px;                 /* vaste afstand tussen afbeeldingen */
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
   padding: 2em;
 }
 
@@ -417,49 +364,37 @@ footer {
   border-radius: 10px;
   cursor: pointer;
 
-  /* gecombineerde overgang voor alles */
   transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.6s ease;
 }
 
-
-/* Fade-in animatie */
 #drawingsGallery img {
   opacity: 0;
-  transform: scale(0.98); /* beginwaarde */
+  transform: scale(0.98); 
 }
 
-/* Wanneer afbeelding geladen is */
 #drawingsGallery img.loaded {
   opacity: 1;
-  transform: scale(1); /* eindwaarde fade-in */
+  transform: scale(1); 
 }
 
-
-
-
-/* Algemene tekstopmaak — altijd witruimte */
 main:not(.gallery),
 section.intro {
-  max-width: 900px;       /* voorkomt te brede tekst op desktop */
-  margin: 0 auto;         /* centreert de container */
-  padding: 0 1em;         /* altijd 1em witruimte links/rechts */
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1em; 
   text-align: left;
   line-height: 1.6;
   font-size: 1.1em;
-  box-sizing: border-box; /* padding wordt bij de breedte opgeteld */
+  box-sizing: border-box; 
 }
 
-/* Kleine schermen: padding behouden */
 @media (max-width: 599px) {
   main:not(.gallery),
   section.intro {
-    padding: 0 1em;       /* behoud witruimte op mobiel */
+    padding: 0 1em;
   }
 }
 
-
-
-/* Hoofdtitels consistent */
 h1 {
   text-align: center;
   margin-top: 1em;
@@ -467,7 +402,6 @@ h1 {
   font-weight: bold;
 }
 
-/* Subtitels consistent (zoals "Over Mij", "Wat je kunt vinden", etc.) */
 h2 {
   font-size: 1.5em;
   margin-bottom: 0.5em;
@@ -475,14 +409,12 @@ h2 {
   text-align: center;
 }
 
-/* Paragraafstijl */
 p {
   margin-bottom: 1.2em;
   color: #444;
-  text-align: justify; /* zelfde gevoel als de video's pagina */
+  text-align: justify;
 }
 
-/* Links in tekst (zoals in KerstKnallers) */
 p a {
   color: #ff9800;
   text-decoration: none;
@@ -493,91 +425,58 @@ p a:hover {
   text-decoration: underline;
 }
 
-/* ==============================
-   RESPONSIVE NAVIGATIE
-   ============================== */
-
 nav {
   background: #222;
-  padding: 0.5em 1em;
+  padding: 0.3em 0.5em;
 }
 
-/* Desktop / tablet */
-nav ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  gap: 2em;
-  margin: 0;
-}
 
 nav li {
   margin: 0;
 }
 
-/* Mobiel (max-width 768px) */
-@media (max-width: 768px) {
-  nav {
-    position: relative;   /* basis voor absolute positioning */
-    padding-bottom: 3em;  /* ruimte onderaan voor hamburger */
-  }
+function loadNavbarMobile() {
+  const navbarContainer = document.getElementById("navbar");
+  if (!navbarContainer) return;
 
-  /* Hamburger knop gecentreerd onderaan */
-  .hamburger {
-    display: flex;
-    position: absolute;
-    bottom: 0;              /* onderkant van nav */
-    left: 50%;              /* horizontaal midden */
-    transform: translateX(-50%);
-    flex-direction: column;
-    width: 40px;            /* breedte hamburger */
-    cursor: pointer;
-    z-index: 1001;
-  }
+  navbarContainer.innerHTML = `
+    <nav class="mobile-nav">
+      <div class="hamburger" id="mobileHamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="fotos.html">Foto's</a>
+        <a href="videos.html">Video's</a>
+        <a href="tekeningen.html">Tekeningen</a>
+      </div>
+    </nav>
+  `;
 
-  .hamburger span {
-    height: 3px;
-    width: 100%;
-    background: white;
-    margin: 4px 0;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-  }
+  const hamburger = document.getElementById("mobileHamburger");
+  const menu = document.getElementById("mobileMenu");
 
-  /* Mobile menu */
-  nav ul {
-    flex-direction: column;
-    align-items: center;
-    background: #222;
-    width: 100%;
-    display: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  nav ul.show {
-    display: flex;
-  }
-
-  nav a {
-    display: block;
-    padding: 0.8em;
-    width: 100%;
-    text-align: center;
+  if (hamburger && menu) {
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("active");
+      menu.classList.toggle("open");
+    });
   }
 }
 
 
 
-/* Verbeter spacing en schaalbaarheid voor kleine schermen */
+
+
 @media (max-width: 600px) {
   body {
     font-size: 0.95em;
   }
 
   header {
-    padding: 0.8em;
+    padding: 0.5em;
   }
 
   main {
@@ -655,45 +554,45 @@ footer button.back-to-top {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  aspect-ratio: 16/9; /* vaste ratio 16:9 */
+  aspect-ratio: 16/9; 
 }
 
-/* Slide wrapper voor animatie */
 .slide-content {
   position: relative;
   width: 100%;
   height: 100%;
 }
 
-/* Slideshow afbeeldingen */
 .slideshow-container img {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain; /* behoudt aspect ratio, witruimte indien nodig */
+  object-fit: contain;
   border-radius: 10px;
-  opacity: 0;
+  transform: translateX(0);
   transition: transform 0.6s ease, opacity 0.6s ease;
 }
 
-/* Actieve afbeelding */
-.slideshow-container img.active {
-  opacity: 1;
-  transform: translateX(0);
+.slideshow-container img.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
 }
 
-/* Slide animatie naar links of rechts */
-.slideshow-container img.slide-in-left {
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.slideshow-container img.slide-left {
   transform: translateX(-100%);
 }
 
-.slideshow-container img.slide-in-right {
+.slideshow-container img.slide-right {
   transform: translateX(100%);
 }
 
-/* Navigatieknoppen */
+
 .slideshow-container .prev,
 .slideshow-container .next {
   cursor: pointer;
@@ -711,7 +610,6 @@ footer button.back-to-top {
 .slideshow-container .prev { left: 10px; }
 .slideshow-container .next { right: 10px; }
 
-/* Caption */
 #slide-caption {
   position: absolute;
   bottom: 0;
@@ -724,8 +622,8 @@ footer button.back-to-top {
   border-top: 1px solid #ccc;
 }
 
-/* Hover effect */
 .slideshow-container img:hover {
   transform: scale(1.02);
   transition: transform 0.5s;
 }
+

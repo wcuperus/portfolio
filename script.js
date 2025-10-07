@@ -40,9 +40,42 @@ function loadNavbar() {
   if (hamburger && navLinks) {
     hamburger.addEventListener("click", () => {
       navLinks.classList.toggle("show");
+      hamburger.classList.toggle("active"); 
     });
   }
 }
+
+function loadNavbarMobile() {
+  const navbarContainer = document.getElementById("navbar");
+  if (!navbarContainer) return;
+
+  navbarContainer.innerHTML = `
+    <nav class="mobile-nav">
+      <div class="hamburger" id="mobileHamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="fotos.html">Foto's</a>
+        <a href="videos.html">Video's</a>
+        <a href="tekeningen.html">Tekeningen</a>
+      </div>
+    </nav>
+  `;
+
+  const hamburger = document.getElementById("mobileHamburger");
+  const menu = document.getElementById("mobileMenu");
+
+  if (hamburger && menu) {
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("active");
+      menu.classList.toggle("open");
+    });
+  }
+}
+
 
 function disableHamburger() {
   const hamburger = document.getElementById("hamburger");
