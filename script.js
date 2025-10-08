@@ -35,15 +35,27 @@ navbarContainer.innerHTML = `
 `;
 
 const darkModeToggle = document.getElementById("darkModeToggle");
+const darkModeLabel = darkModeToggle.querySelector(".darkModeLabel");
+
+// Initialiseer label op basis van huidige staat
+if(document.body.classList.contains("dark-mode")) {
+  darkModeLabel.textContent = " Light mode";
+} else {
+  darkModeLabel.textContent = " Dark mode";
+}
+
 darkModeToggle.addEventListener("click", () => {
   document.body.classList.toggle("dark-mode");
-  // Opslaan in localStorage zodat voorkeur onthouden wordt
+
   if(document.body.classList.contains("dark-mode")) {
     localStorage.setItem("darkMode", "enabled");
+    darkModeLabel.textContent = " Light mode"; // knop toont wat er gebeurt als je klikt
   } else {
     localStorage.setItem("darkMode", "disabled");
+    darkModeLabel.textContent = " Dark mode";
   }
 });
+
 
   const links = navbarContainer.querySelectorAll("nav a");
   links.forEach(link => {
@@ -150,6 +162,13 @@ function addFooter() {
 
 
 document.addEventListener("DOMContentLoaded", () => {
+  const darkModeSetting = localStorage.getItem("darkMode");
+  if (darkModeSetting === "enabled") {
+    document.body.classList.add("dark-mode");
+  } else {
+    document.body.classList.remove("dark-mode");
+  }
+
   loadNavbar();
   enableHamburger();
   addFooter();
