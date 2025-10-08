@@ -115,6 +115,11 @@ main {
   color: white;
 }
 
+.card.substack {
+  background-color: #ffbb00;
+  color: white;
+}
+
 .card.photo {
   background-color: #f0f0f0;
   color: #333;
