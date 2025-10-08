@@ -6,70 +6,59 @@ function loadNavbar() {
   const navbarContainer = document.getElementById("navbar");
   if (!navbarContainer) return;
 
-  navbarContainer.innerHTML = `
-    <nav>
-      <div class="hamburger" id="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <ul id="navLinks">
+navbarContainer.innerHTML = `
+<header class="site-header">
+  <div class="nav-container">
+    <div class="site-branding">
+      <a href="index.html" class="site-title">Watse Cuperus</a>
+    </div>
+    <nav class="site-nav" id="siteNav">
+      <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="fotos.html">Foto's</a></li>
         <li><a href="videos.html">Video's</a></li>
         <li><a href="tekeningen.html">Tekeningen</a></li>
+        <li>
+          <button id="darkModeToggle" style="background:none;border:none;color:#ff9800;cursor:pointer;">
+            🌓<span class="darkModeLabel"> Dark mode</span>
+          </button>
+        </li>
       </ul>
     </nav>
-  `;
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+`;
 
-  const links = navbarContainer.querySelectorAll("a");
+const darkModeToggle = document.getElementById("darkModeToggle");
+darkModeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+  // Opslaan in localStorage zodat voorkeur onthouden wordt
+  if(document.body.classList.contains("dark-mode")) {
+    localStorage.setItem("darkMode", "enabled");
+  } else {
+    localStorage.setItem("darkMode", "disabled");
+  }
+});
+
+  const links = navbarContainer.querySelectorAll("nav a");
   links.forEach(link => {
-    if (link.href === window.location.href) {
-      link.classList.add("active");
-    }
+    if (link.href === window.location.href) link.classList.add("active");
   });
 
   const hamburger = document.getElementById("hamburger");
-  const navLinks = document.getElementById("navLinks");
+  const siteNav = document.getElementById("siteNav");
 
-  if (hamburger && navLinks) {
-    hamburger.addEventListener("click", () => {
-      navLinks.classList.toggle("show");
-      hamburger.classList.toggle("active");
-    });
-  }
+  hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("active");
+    siteNav.classList.toggle("open");
+  });
 }
 
-function loadNavbarMobile() {
-  const navbarContainer = document.getElementById("navbar");
-  if (!navbarContainer) return;
-
-  navbarContainer.innerHTML = `
-    <nav class="mobile-nav">
-      <div class="hamburger" id="mobileHamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <div class="mobile-menu" id="mobileMenu">
-        <a href="index.html">Home</a>
-        <a href="fotos.html">Foto's</a>
-        <a href="videos.html">Video's</a>
-        <a href="tekeningen.html">Tekeningen</a>
-      </div>
-    </nav>
-  `;
-
-  const hamburger = document.getElementById("mobileHamburger");
-  const menu = document.getElementById("mobileMenu");
-
-  if (hamburger && menu) {
-    hamburger.addEventListener("click", () => {
-      hamburger.classList.toggle("active");
-      menu.classList.toggle("open");
-    });
-  }
-}
 
 
 function disableHamburger() {
@@ -124,107 +113,9 @@ function addBackToTopButton() {
   });
 }
 
-function addFooter(options = {}) {
-  const footer = document.createElement("footer");
-
-  footer.style.background = "#222";
-  footer.style.color = "white";
-  footer.style.textAlign = "center";
-  footer.style.padding = "1em";
-  footer.style.marginTop = "2em";
-
-  if (options.links && options.links.length > 0) {
-    const linkContainer = document.createElement("div");
-    options.links.forEach(link => {
-      const a = document.createElement("a");
-      a.textContent = link.text;
-      a.href = link.href;
-      a.style.color = "#ff9800";
-      a.style.margin = "0 0.5em";
-      a.style.textDecoration = "none";
-      a.addEventListener("mouseover", () => a.style.textDecoration = "underline");
-      a.addEventListener("mouseout", () => a.style.textDecoration = "none");
-      linkContainer.appendChild(a);
-    });
-    footer.appendChild(linkContainer);
-  }
-
-  document.body.appendChild(footer);
-}
-
-function loadFooter(containerId = "footerContainer") {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-
-  container.innerHTML = `
-    <nav class="footer-nav">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="fotos.html">Foto's</a></li>
-        <li><a href="videos.html">Video's</a></li>
-        <li><a href="tekeningen.html">Tekeningen</a></li>
-      </ul>
-    </nav>
-  `;
-}
-
-function loadFooter(options = {}) {
-  const footerContainerId = options.containerId || "footerContainer";
-  const container = document.getElementById(footerContainerId);
-
-  if (!container) {
-    const footer = document.createElement("footer");
-    footer.id = footerContainerId;
-
-    footer.innerHTML = `
-      <nav>
-        <div class="footer-links">
-          <a href="index.html">Home</a> | 
-          <a href="fotos.html">Foto's</a> | 
-          <a href="videos.html">Video's</a> | 
-          <a href="tekeningen.html">Tekeningen</a>
-        </div>
-      </nav>
-    `;
-
-    document.body.appendChild(footer);
-
-    styleStickyFooter(footer);
-  } else {
-    container.innerHTML = `
-      <nav>
-        <div class="footer-links">
-          <a href="index.html">Home</a> | 
-          <a href="fotos.html">Foto's</a> | 
-          <a href="videos.html">Video's</a> | 
-          <a href="tekeningen.html">Tekeningen</a>
-        </div>
-      </nav>
-    `;
-    styleStickyFooter(container);
-  }
-}
-
-function styleStickyFooter(footer) {
-  footer.style.width = "100%";
-  footer.style.padding = "1em";
-  footer.style.backgroundColor = "#222";
-  footer.style.color = "#fff";
-  footer.style.textAlign = "center";
-  footer.style.position = "relative"; // standaard
-  footer.style.marginTop = "2em";
-
-  const bodyHeight = document.body.offsetHeight;
-  const windowHeight = window.innerHeight;
-  if (bodyHeight < windowHeight) {
-    footer.style.position = "absolute";
-    footer.style.bottom = "0";
-  }
-}
-
 function addFooter() {
   const footer = document.createElement("footer");
-  footer.className = "footer";
+  footer.className = "footer"; // CSS regelt kleuren en styling
 
   footer.innerHTML = `
     <div class="footer-links">
@@ -237,25 +128,11 @@ function addFooter() {
 
   document.body.appendChild(footer);
 
-  footer.style.width = "100%";
-  footer.style.backgroundColor = "#222";
-  footer.style.color = "#fff";
-  footer.style.textAlign = "center";
-  footer.style.padding = "1em";
-  footer.style.marginTop = "2em";
-  footer.style.position = "relative";
-
+  // Voeg back-to-top button toe als de pagina scrollbaar is
   if (document.body.scrollHeight > window.innerHeight) {
     const btn = document.createElement("button");
+    btn.className = "back-to-top";
     btn.textContent = "↑ Terug naar boven";
-    btn.style.marginTop = "0.5em";
-    btn.style.padding = "0.5em 1em";
-    btn.style.fontSize = "0.9em";
-    btn.style.border = "none";
-    btn.style.borderRadius = "5px";
-    btn.style.backgroundColor = "#ff9800";
-    btn.style.color = "#fff";
-    btn.style.cursor = "pointer";
     btn.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
@@ -263,13 +140,13 @@ function addFooter() {
     footer.appendChild(btn);
   }
 
+  // Sticky footer voor korte pagina's
   if (document.body.scrollHeight < window.innerHeight) {
     footer.style.position = "absolute";
     footer.style.bottom = "0";
     footer.style.left = "0";
   }
 }
-
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -306,26 +183,11 @@ function initSlideshow() {
     let alt = "";
 
     switch (slide.type) {
-      case "photo":
-        src = "afbeeldingen/" + getRandomImage(images);
-        alt = "Bekijk mijn foto's";
-        break;
-      case "drawing":
-        src = getRandomImage(drawings);
-        alt = "Bekijk mijn tekeningen";
-        break;
-      case "video":
-        src = "data/video.jpg";
-        alt = "Bekijk mijn video's";
-        break;
-      case "github":
-        src = "data/Github_preview.png";
-        alt = "GitHub";
-        break;
-      case "linkedin":
-        src = "data/LinkedIn_preview.png";
-        alt = "LinkedIn";
-        break;
+      case "photo": src = "afbeeldingen/" + getRandomImage(images); alt = "Bekijk mijn foto's"; break;
+      case "drawing": src = getRandomImage(drawings); alt = "Bekijk mijn tekeningen"; break;
+      case "video": src = "data/video.jpg"; alt = "Bekijk mijn video's"; break;
+      case "github": src = "data/Github_preview.png"; alt = "GitHub"; break;
+      case "linkedin": src = "data/LinkedIn_preview.png"; alt = "LinkedIn"; break;
     }
 
     slideImg.style.opacity = 0;
@@ -346,9 +208,13 @@ function initSlideshow() {
 
   function resetInterval() { clearInterval(interval); interval = setInterval(nextSlide, intervalTime); }
 
+  slideImg.addEventListener("mouseenter", () => clearInterval(interval));
+  slideImg.addEventListener("mouseleave", () => { interval = setInterval(nextSlide, intervalTime); });
+
   showSlide(index);
   interval = setInterval(nextSlide, intervalTime);
 }
+
 
 function getDrawingsArray() {
   const gallery = document.getElementById("drawingsGallery");
