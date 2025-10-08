@@ -9,7 +9,6 @@ function initDrawingsGallery(galleryId) {
 images.forEach((img, index) => {
   img.dataset.index = index;
 
-  // fade-in animatie
   if (img.complete) {
     img.classList.add("loaded");
   } else {
@@ -33,10 +32,8 @@ function openLightbox(images, index) {
   lightbox.classList.remove("hidden");
   lightboxImg.src = images[currentIndex].src;
 
-  // 🔒 Hamburger uit
   disableHamburger();
 
-  // Thumbnails
   thumbsContainer.innerHTML = "";
   images.forEach((img, i) => {
     const thumb = document.createElement("img");
@@ -76,7 +73,6 @@ function updateThumbs() {
     thumb.classList.toggle("active", i === currentIndex);
   });
 
-  // Scroll de actieve thumbnail in beeld
   scrollActiveThumbIntoView();
 }
 
@@ -105,7 +101,7 @@ function setupLightboxButtons(images) {
     const lightbox = document.getElementById("lightbox");
     if (lightbox) {
       lightbox.classList.add("hidden");
-      enableHamburger(); // 🔓 Zet hamburger weer aan
+      enableHamburger(); 
     }
   });
 }
@@ -115,7 +111,6 @@ function scrollActiveThumbIntoView() {
   const activeThumb = thumbsContainer?.querySelector("img.active");
   if (!thumbsContainer || !activeThumb) return;
 
-  // Bereken zodat de actieve thumbnail gecentreerd is
   const containerRect = thumbsContainer.getBoundingClientRect();
   const thumbRect = activeThumb.getBoundingClientRect();
 
@@ -127,8 +122,6 @@ function scrollActiveThumbIntoView() {
   });
 }
 
-
-// Initialisatie
 document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("drawingsGallery")) {
     initDrawingsGallery("drawingsGallery");

@@ -1,12 +1,9 @@
 import os
 
-# Pad naar de map met afbeeldingen
 IMAGE_DIR = r"C:\Users\Gebruiker\Documents\GitHub\portfolio\afbeeldingen"
 
-# Pad naar output JS-bestand
 OUTPUT_JS = os.path.join(os.path.dirname(IMAGE_DIR), "images.js")
 
-# Toegestane extensies
 ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
 
 def generate_image_list_js():
@@ -15,7 +12,6 @@ def generate_image_list_js():
         if os.path.splitext(filename)[1].lower() in ALLOWED_EXTENSIONS:
             images.append(filename)
 
-    # JS-bestand inhoud
     js_content = "const images = [\n"
     js_content += ",\n".join([f'  "{img}"' for img in images])
     js_content += "\n];\n"

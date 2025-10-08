@@ -30,7 +30,6 @@ function initGallery(galleryId) {
   });
 }
 
-
 function openLightbox(index) {
   const lightbox = document.getElementById("lightbox");
   const lightboxImg = document.getElementById("lightboxImg");
@@ -110,7 +109,7 @@ function setupLightboxButtons() {
     const lightbox = document.getElementById("lightbox");
     if (lightbox) {
       lightbox.classList.add("hidden");
-      enableHamburger(); // 🔓 Zet hamburger weer aan
+      enableHamburger();
     }
   });
 }
@@ -130,7 +129,6 @@ function scrollActiveThumbIntoView() {
     behavior: "smooth"
   });
 }
-
 
 document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("photoGallery")) {

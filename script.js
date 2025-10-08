@@ -1,6 +1,3 @@
-// ================================
-// Navigatie
-// ================================
 function navigateTo(page) {
   window.location.href = page;
 }
@@ -25,7 +22,6 @@ function loadNavbar() {
     </nav>
   `;
 
-  // Active link highlight
   const links = navbarContainer.querySelectorAll("a");
   links.forEach(link => {
     if (link.href === window.location.href) {
@@ -33,14 +29,13 @@ function loadNavbar() {
     }
   });
 
-  // Hamburger-menu functionaliteit
   const hamburger = document.getElementById("hamburger");
   const navLinks = document.getElementById("navLinks");
 
   if (hamburger && navLinks) {
     hamburger.addEventListener("click", () => {
       navLinks.classList.toggle("show");
-      hamburger.classList.toggle("active"); 
+      hamburger.classList.toggle("active");
     });
   }
 }
@@ -82,7 +77,7 @@ function disableHamburger() {
   if (hamburger) {
     hamburger.style.pointerEvents = "none";
     hamburger.style.opacity = "0.5";
-    hamburger.style.zIndex = "0"; // achter de lightbox
+    hamburger.style.zIndex = "0";
   }
 }
 
@@ -91,17 +86,15 @@ function enableHamburger() {
   if (hamburger) {
     hamburger.style.pointerEvents = "auto";
     hamburger.style.opacity = "1";
-    hamburger.style.zIndex = "1000"; // boven de content
+    hamburger.style.zIndex = "1000"; 
   }
 }
 
 function addBackToTopButton() {
-  // Maak de knop aan
   const btn = document.createElement("button");
   btn.id = "backToTop";
   btn.textContent = "↑ Terug naar boven";
 
-  // Basisstijl (je kunt dit later ook in CSS zetten)
   btn.style.position = "fixed";
   btn.style.bottom = "20px";
   btn.style.right = "20px";
@@ -114,17 +107,14 @@ function addBackToTopButton() {
   btn.style.cursor = "pointer";
   btn.style.boxShadow = "0 2px 6px rgba(0,0,0,0.2)";
   btn.style.zIndex = "1000";
-  btn.style.display = "none"; // standaard verborgen
+  btn.style.display = "none"; 
 
-  // Klik-functionaliteit: scroll naar boven
   btn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
-  // Voeg de knop toe aan de body
   document.body.appendChild(btn);
 
-  // Toon de knop pas als je een stukje naar beneden scrolt
   window.addEventListener("scroll", () => {
     if (window.scrollY > 200) {
       btn.style.display = "block";
@@ -135,17 +125,14 @@ function addBackToTopButton() {
 }
 
 function addFooter(options = {}) {
-  // opties: { links: [{ text, href }] }
   const footer = document.createElement("footer");
 
-  // basisstijl (optioneel, kan ook via CSS)
   footer.style.background = "#222";
   footer.style.color = "white";
   footer.style.textAlign = "center";
   footer.style.padding = "1em";
   footer.style.marginTop = "2em";
 
-  // Voeg eventueel links toe
   if (options.links && options.links.length > 0) {
     const linkContainer = document.createElement("div");
     options.links.forEach(link => {
@@ -162,13 +149,12 @@ function addFooter(options = {}) {
     footer.appendChild(linkContainer);
   }
 
-  // Voeg de footer toe aan de body
   document.body.appendChild(footer);
 }
 
 function loadFooter(containerId = "footerContainer") {
   const container = document.getElementById(containerId);
-  if (!container) return; // als er geen container is, doe niks
+  if (!container) return;
 
   container.innerHTML = `
     <nav class="footer-nav">
@@ -183,16 +169,13 @@ function loadFooter(containerId = "footerContainer") {
 }
 
 function loadFooter(options = {}) {
-  // Optioneel: alleen toevoegen als container bestaat
   const footerContainerId = options.containerId || "footerContainer";
   const container = document.getElementById(footerContainerId);
 
   if (!container) {
-    // Als er geen container is, maak er een aan onderaan body
     const footer = document.createElement("footer");
     footer.id = footerContainerId;
 
-    // Voeg basis content toe (bijv. links)
     footer.innerHTML = `
       <nav>
         <div class="footer-links">
@@ -204,13 +187,10 @@ function loadFooter(options = {}) {
       </nav>
     `;
 
-    // Voeg aan body toe
     document.body.appendChild(footer);
 
-    // Zorg dat footer altijd onderaan staat
     styleStickyFooter(footer);
   } else {
-    // Als container bestaat, voeg hier content in
     container.innerHTML = `
       <nav>
         <div class="footer-links">
@@ -225,7 +205,6 @@ function loadFooter(options = {}) {
   }
 }
 
-// Optionele functie om footer onderaan te "plakken"
 function styleStickyFooter(footer) {
   footer.style.width = "100%";
   footer.style.padding = "1em";
@@ -235,7 +214,6 @@ function styleStickyFooter(footer) {
   footer.style.position = "relative"; // standaard
   footer.style.marginTop = "2em";
 
-  // Flexibele footer: als content kleiner is dan schermhoogte
   const bodyHeight = document.body.offsetHeight;
   const windowHeight = window.innerHeight;
   if (bodyHeight < windowHeight) {
@@ -248,7 +226,6 @@ function addFooter() {
   const footer = document.createElement("footer");
   footer.className = "footer";
 
-  // Voeg links toe in de footer
   footer.innerHTML = `
     <div class="footer-links">
       <a href="index.html">Home</a> |
@@ -258,10 +235,8 @@ function addFooter() {
     </div>
   `;
 
-  // Voeg de footer aan het einde van body toe
   document.body.appendChild(footer);
 
-  // Basisstijl footer
   footer.style.width = "100%";
   footer.style.backgroundColor = "#222";
   footer.style.color = "#fff";
@@ -270,7 +245,6 @@ function addFooter() {
   footer.style.marginTop = "2em";
   footer.style.position = "relative";
 
-  // Voeg "Terug naar boven"-knop alleen als pagina scrollbaar is
   if (document.body.scrollHeight > window.innerHeight) {
     const btn = document.createElement("button");
     btn.textContent = "↑ Terug naar boven";
@@ -289,7 +263,6 @@ function addFooter() {
     footer.appendChild(btn);
   }
 
-  // Zorg dat footer onderaan blijft als content kleiner is dan schermhoogte
   if (document.body.scrollHeight < window.innerHeight) {
     footer.style.position = "absolute";
     footer.style.bottom = "0";
@@ -332,7 +305,7 @@ function initSlideshow() {
     let src = "";
     let alt = "";
 
-    switch(slide.type) {
+    switch (slide.type) {
       case "photo":
         src = "afbeeldingen/" + getRandomImage(images);
         alt = "Bekijk mijn foto's";
@@ -355,7 +328,6 @@ function initSlideshow() {
         break;
     }
 
-    // Fade animatie
     slideImg.style.opacity = 0;
     setTimeout(() => {
       slideImg.src = src;
@@ -378,18 +350,14 @@ function initSlideshow() {
   interval = setInterval(nextSlide, intervalTime);
 }
 
-
 function getDrawingsArray() {
-  // Kijk of we een #drawingsGallery op de pagina hebben (of elders in DOM)
   const gallery = document.getElementById("drawingsGallery");
   if (!gallery) {
-    // fallback: vaste lijst of lege array
     return [
       "tekeningen/RainbowRoad.png",
       "tekeningen/strand.png",
       "tekeningen/tekening2.png"
     ];
   }
-  // Pak alle <img> src attributen
   return Array.from(gallery.querySelectorAll("img")).map(img => img.src);
 }
